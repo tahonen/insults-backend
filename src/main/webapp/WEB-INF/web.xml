@@ -4,4 +4,7 @@
 		<param-name>version</param-name>
 		<param-value>1.0.0</param-value>
 	</context-param>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>
