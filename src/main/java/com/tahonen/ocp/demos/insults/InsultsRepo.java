@@ -1,6 +1,7 @@
 package com.tahonen.ocp.demos.insults;
 
 import java.io.File;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,13 +11,14 @@ import javax.ejb.Startup;
 import javax.ejb.Stateful;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 @Stateful
 @Startup
 public class InsultsRepo {
-	public static final String LONG_ADJECTIVES_FILE = "long-adjectives.txt";
-	public static final String SHORT_ADJECTIVES_FILE = "short-adjectives.txt";
-	public static final String NOUNS_FILE = "nouns.txt";
+	public static final String LONG_ADJECTIVES_FILE = "/long-adjectives.txt";
+	public static final String SHORT_ADJECTIVES_FILE = "/short-adjectives.txt";
+	public static final String NOUNS_FILE = "/nouns.txt";
 	
 	private List<String> longAdjectives;
 	private List<String> shortAdjectives;
@@ -33,12 +35,9 @@ public class InsultsRepo {
 	@PostConstruct
 	private void init() {
 		try {
-			File file = new File(LONG_ADJECTIVES_FILE);
-			longAdjectives = FileUtils.readLines(file, "UTF-8");
-			file = new File(SHORT_ADJECTIVES_FILE);
-			shortAdjectives = FileUtils.readLines(file, "UTF-8");
-			file = new File(NOUNS_FILE);
-			nouns = FileUtils.readLines(file, "UTF-8");
+			longAdjectives = IOUtils.readLines(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(LONG_ADJECTIVES_FILE)));
+			shortAdjectives = IOUtils.readLines(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(SHORT_ADJECTIVES_FILE)));
+			nouns = IOUtils.readLines(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(NOUNS_FILE)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			longAdjectives = new ArrayList<String>();
