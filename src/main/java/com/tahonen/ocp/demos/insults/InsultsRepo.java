@@ -26,8 +26,8 @@ public class InsultsRepo {
 
 	public String[] getInsult(){
 		String[] insult = new String[3];
-		insult[0] = longAdjectives.get(ThreadLocalRandom.current().nextInt(0, longAdjectives.size() + 1));
-		insult[1] = shortAdjectives.get(ThreadLocalRandom.current().nextInt(0, shortAdjectives.size() + 1));
+		insult[0] = shortAdjectives.get(ThreadLocalRandom.current().nextInt(0, shortAdjectives.size() + 1));
+		insult[1] = longAdjectives.get(ThreadLocalRandom.current().nextInt(0, longAdjectives.size() + 1));
 		insult[2] = nouns.get(ThreadLocalRandom.current().nextInt(0, nouns.size() + 1));
 		return insult;
 	}
