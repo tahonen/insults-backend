@@ -8,12 +8,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Startup;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
-@Stateful
+@Stateless
 @Startup
 public class InsultsRepo {
 	public static final String LONG_ADJECTIVES_FILE = "/long-adjectives.txt";
