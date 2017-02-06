@@ -1,4 +1,31 @@
 <settings>
+    <proxies>
+    <proxy>
+      <id>proxy</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>155.55.65.13</host>
+      <port>8088</port>
+    </proxy>
+  </proxies>
+    <repositories>
+        <repository>
+          <id>internal</id>
+          <name>internal</name>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+            <checksumPolicy>warn</checksumPolicy>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+            <checksumPolicy>fail</checksumPolicy>
+          </snapshots>
+          <url>http://155.55.3.119</url>
+          <layout>default</layout>
+        </repository>
+      </repositories>
     <pluginGroups>
         <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
     </pluginGroups>
