@@ -37,6 +37,7 @@
     <pluginGroups>
         <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
     </pluginGroups>
+    <!--
     <profiles>
         <profile>
             <id>sonar</id>
@@ -44,11 +45,14 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <!-- Optional URL to server. Default value is http://localhost:9000 -->
                 <sonar.host.url>
                   http://sonarqube-cicd.apps.ocp.ninja
                 </sonar.host.url>
             </properties>
         </profile>
      </profiles>
+      -->
+    <activeProfiles>
+    <activeProfile>test</activeProfile>
+  </activeProfiles>
 </settings>
