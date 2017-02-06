@@ -8,6 +8,12 @@
       <port>8088</port>
     </proxy>
   </proxies>
+    <profiles>
+    <profile>
+      <id>test</id>
+        <activation>
+        <activeByDefault>true</activeByDefault>
+        </activation>
     <repositories>
         <repository>
           <id>internal</id>
@@ -26,6 +32,8 @@
           <layout>default</layout>
         </repository>
       </repositories>
+        </profile>
+    </profiles>
     <pluginGroups>
         <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
     </pluginGroups>
