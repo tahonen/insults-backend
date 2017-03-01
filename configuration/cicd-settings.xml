@@ -2,8 +2,8 @@
   <servers>
      <server>
         <id>nexus</id>
-        <username>deployment</username>
-        <password>deployment123</password>
+        <username>developer</username>
+        <password>developer123</password>
      </server>
   </servers>
   
