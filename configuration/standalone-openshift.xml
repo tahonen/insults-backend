@@ -133,8 +133,7 @@
         <subsystem xmlns="urn:jboss:domain:bean-validation:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:4.0">
             <datasources>
-                <datasource jta="true" jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true"> <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY
-=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url> <driver>h2</driver> <security> <user-name>sa</user-name> <password>sa</password> </security> </datasource><!-- ##DATASOURCES## -->
+                <datasource jta="true" jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true"> <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url> <driver>h2</driver> <security> <user-name>sa</user-name> <password>sa</password> </security> </datasource><!-- ##DATASOURCES## -->
                 <drivers>
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
@@ -150,8 +149,7 @@
             </datasources>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:deployment-scanner:2.0">
-            <deployment-scanner path="deployments" relative-to="jboss.server.base.dir" scan-interval="5000" runtime-failure-causes-rollback="${jboss.deployment.scanner.rollback.on.failure:false
-}" auto-deploy-exploded="false"/>
+            <deployment-scanner path="deployments" relative-to="jboss.server.base.dir" scan-interval="5000" runtime-failure-causes-rollback="${jboss.deployment.scanner.rollback.on.failure:false}" auto-deploy-exploded="false"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:ee:4.0">
             <spec-descriptor-property-replacement>false</spec-descriptor-property-replacement>
@@ -166,8 +164,7 @@
                     <managed-executor-service name="default" jndi-name="java:jboss/ee/concurrency/executor/default" context-service="default" hung-task-threshold="60000" keepalive-time="5000"/>
                 </managed-executor-services>
                 <managed-scheduled-executor-services>
-                    <managed-scheduled-executor-service name="default" jndi-name="java:jboss/ee/concurrency/scheduler/default" context-service="default" hung-task-threshold="60000" keepalive-ti
-me="3000"/>
+                    <managed-scheduled-executor-service name="default" jndi-name="java:jboss/ee/concurrency/scheduler/default" context-service="default" hung-task-threshold="60000" keepalive-time="3000"/>
                 </managed-scheduled-executor-services>
             </concurrent>
             <default-bindings context-service="java:jboss/ee/concurrency/context/default"
@@ -205,8 +202,7 @@ me="3000"/>
             </passivation-stores>
             <async thread-pool-name="default"/>
             <remote connector-ref="http-remoting-connector" thread-pool-name="default"/>
-                        <timer-service thread-pool-name="default" default-data-store="default-file-store">                <data-stores>                    <file-data-store name="default-file-st
-ore" path="timer-service-data" relative-to="jboss.server.data.dir"/>                    <!-- ##DATASTORES## -->                </data-stores>            </timer-service>
+                        <timer-service thread-pool-name="default" default-data-store="default-file-store">                <data-stores>                    <file-data-store name="default-file-store" path="timer-service-data" relative-to="jboss.server.data.dir"/>                    <!-- ##DATASTORES## -->                </data-stores>            </timer-service>
             <thread-pools>
                 <thread-pool name="default">
                     <max-threads count="10"/>
@@ -352,8 +348,7 @@ ore" path="timer-service-data" relative-to="jboss.server.data.dir"/>            
         <security-setting name="#">
             <role name="guest" send="true" consume="true" create-non-durable-queue="true" delete-non-durable-queue="true"/>
         </security-setting>
-        <address-setting name="#" dead-letter-address="jms.queue.DLQ" expiry-address="jms.queue.ExpiryQueue" max-size-bytes="10485760" page-size-bytes="2097152" message-counter-history-day-limi
-t="10" redistribution-delay="1000"/>
+        <address-setting name="#" dead-letter-address="jms.queue.DLQ" expiry-address="jms.queue.ExpiryQueue" max-size-bytes="10485760" page-size-bytes="2097152" message-counter-history-day-limit="10" redistribution-delay="1000"/>
         <http-connector name="http-connector" socket-binding="http" endpoint="http-acceptor"/>
         <http-connector name="http-connector-throughput" socket-binding="http" endpoint="http-acceptor-throughput">
             <param name="batch-delay" value="50"/>
@@ -372,8 +367,7 @@ t="10" redistribution-delay="1000"/>
         <jms-queue name="DLQ" entries="java:/jms/queue/DLQ"/>
         
         <connection-factory name="InVmConnectionFactory" connectors="in-vm" entries="java:/ConnectionFactory"/>
-        <connection-factory name="RemoteConnectionFactory" ha="true" block-on-acknowledge="true" reconnect-attempts="-1" connectors="http-connector" entries="java:jboss/exported/jms/RemoteConne
-ctionFactory"/>
+        <connection-factory name="RemoteConnectionFactory" ha="true" block-on-acknowledge="true" reconnect-attempts="-1" connectors="http-connector" entries="java:jboss/exported/jms/RemoteConnectionFactory"/>
         <pooled-connection-factory name="activemq-ra" transaction="xa" connectors="in-vm" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory"/>
     </server>
         </subsystem>
@@ -485,20 +479,16 @@ ctionFactory"/>
             <client-config name="Standard-Client-Config"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:weld:3.0"/>
-        <subsystem xmlns="urn:org.hawkular.agent:agent:1.0" auto-discovery-scan-period-secs="600" enabled="true" immutable="${hawkular.agent.immutable:false}" in-container="${hawkular.agent.in-
-container:false}" min-collection-interval-secs="${hawkular.agent.minCollectionIntervalSecs:30}">
+        <subsystem xmlns="urn:org.hawkular.agent:agent:1.0" auto-discovery-scan-period-secs="600" enabled="true" immutable="${hawkular.agent.immutable:false}" in-container="${hawkular.agent.in-container:false}" min-collection-interval-secs="${hawkular.agent.minCollectionIntervalSecs:30}">
             <diagnostics enabled="true" interval="1" report-to="LOG" time-units="minutes"/>
             <storage-adapter password="${env.HW_PASSWORD}" server-outbound-socket-binding-ref="hawkular" type="HAWKULAR" username="${env.HW_USERNAME}"/>
             <metric-set-dmr enabled="true" name="WildFly Memory Metrics">
                 <metric-dmr attribute="heap-memory-usage#used" interval="30" metric-units="bytes" name="Heap Used" path="/core-service=platform-mbean/type=memory" time-units="seconds"/>
-                <metric-dmr attribute="heap-memory-usage#committed" interval="1" metric-units="bytes" name="Heap Committed" path="/core-service=platform-mbean/type=memory" time-units="minutes"/
->
+                <metric-dmr attribute="heap-memory-usage#committed" interval="1" metric-units="bytes" name="Heap Committed" path="/core-service=platform-mbean/type=memory" time-units="minutes"/>
                 <metric-dmr attribute="heap-memory-usage#max" interval="1" metric-units="bytes" name="Heap Max" path="/core-service=platform-mbean/type=memory" time-units="minutes"/>
                 <metric-dmr attribute="non-heap-memory-usage#used" interval="30" metric-units="bytes" name="NonHeap Used" path="/core-service=platform-mbean/type=memory" time-units="seconds"/>
-                <metric-dmr attribute="non-heap-memory-usage#committed" interval="1" metric-units="bytes" name="NonHeap Committed" path="/core-service=platform-mbean/type=memory" time-units="mi
-nutes"/>
-                <metric-dmr attribute="collection-time" interval="1" metric-type="counter" metric-units="milliseconds" name="Accumulated GC Duration" path="/core-service=platform-mbean/type=gar
-bage-collector/name=*" time-units="minutes"/>
+                <metric-dmr attribute="non-heap-memory-usage#committed" interval="1" metric-units="bytes" name="NonHeap Committed" path="/core-service=platform-mbean/type=memory" time-units="minutes"/>
+                <metric-dmr attribute="collection-time" interval="1" metric-type="counter" metric-units="milliseconds" name="Accumulated GC Duration" path="/core-service=platform-mbean/type=garbage-collector/name=*" time-units="minutes"/>
             </metric-set-dmr>
             <metric-set-dmr enabled="true" name="WildFly Threading Metrics">
                 <metric-dmr attribute="thread-count" interval="2" metric-units="none" name="Thread Count" path="/core-service=platform-mbean/type=threading" time-units="minutes"/>
@@ -507,12 +497,9 @@ bage-collector/name=*" time-units="minutes"/>
                 <metric-dmr attribute="active-sessions" interval="1" name="Aggregated Active Web Sessions" path="/deployment=*/subsystem=undertow" time-units="minutes"/>
                 <metric-dmr attribute="max-active-sessions" interval="1" name="Aggregated Max Active Web Sessions" path="/deployment=*/subsystem=undertow" time-units="minutes"/>
                 <metric-dmr attribute="expired-sessions" interval="1" metric-type="counter" name="Aggregated Expired Web Sessions" path="/deployment=*/subsystem=undertow" time-units="minutes"/>
-                <metric-dmr attribute="rejected-sessions" interval="1" metric-type="counter" name="Aggregated Rejected Web Sessions" path="/deployment=*/subsystem=undertow" time-units="minutes"
-/>
-                <metric-dmr attribute="total-request-time" interval="1" metric-type="counter" name="Aggregated Servlet Request Time" path="/deployment=*/subsystem=undertow/servlet=*" time-units
-="minutes"/>
-                <metric-dmr attribute="request-count" interval="1" metric-type="counter" name="Aggregated Servlet Request Count" path="/deployment=*/subsystem=undertow/servlet=*" time-units="mi
-nutes"/>
+                <metric-dmr attribute="rejected-sessions" interval="1" metric-type="counter" name="Aggregated Rejected Web Sessions" path="/deployment=*/subsystem=undertow" time-units="minutes"/>
+                <metric-dmr attribute="total-request-time" interval="1" metric-type="counter" name="Aggregated Servlet Request Time" path="/deployment=*/subsystem=undertow/servlet=*" time-units="minutes"/>
+                <metric-dmr attribute="request-count" interval="1" metric-type="counter" name="Aggregated Servlet Request Count" path="/deployment=*/subsystem=undertow/servlet=*" time-units="minutes"/>
             </metric-set-dmr>
             <metric-set-dmr enabled="true" name="Undertow Metrics">
                 <metric-dmr attribute="active-sessions" interval="2" name="Active Sessions" path="/subsystem=undertow" time-units="minutes"/>
@@ -628,8 +615,7 @@ nutes"/>
                 <avail-dmr attribute="status" interval="1" name="Deployment Status" path="/" time-units="minutes" up-regex="OK"/>
             </avail-set-dmr>
             <resource-type-set-dmr enabled="true" name="Standalone Environment">
-                <resource-type-dmr avail-sets="Server Availability" metric-sets="WildFly Memory Metrics,WildFly Threading Metrics,WildFly Aggregated Web Metrics" name="WildFly Server" path="/" 
-resource-name-template="WildFly Server [%ManagedServerName]">
+                <resource-type-dmr avail-sets="Server Availability" metric-sets="WildFly Memory Metrics,WildFly Threading Metrics,WildFly Aggregated Web Metrics" name="WildFly Server" path="/" resource-name-template="WildFly Server [%ManagedServerName]">
                     <notification-dmr name="resource-added"/>
                     <resource-config-dmr attribute="name" name="Name"/>
                     <resource-config-dmr attribute="product-name" name="Product Name"/>
@@ -717,8 +703,7 @@ resource-name-template="WildFly Server [%ManagedServerName]">
                         <param description="Timeout in seconds to allow active connections to drain" name="timeout" type="int"/>
                     </operation-dmr>
                 </resource-type-dmr>
-                <resource-type-dmr metric-sets="WildFly Memory Metrics,WildFly Threading Metrics" name="Domain Host" parents="Host Controller" path="/host=*" resource-name-template="Domain Host
- [%-]">
+                <resource-type-dmr metric-sets="WildFly Memory Metrics,WildFly Threading Metrics" name="Domain Host" parents="Host Controller" path="/host=*" resource-name-template="Domain Host[%-]">
                     <notification-dmr name="resource-added"/>
                     <resource-config-dmr attribute="name" name="Name"/>
                     <resource-config-dmr attribute="product-name" name="Product Name"/>
@@ -735,8 +720,7 @@ resource-name-template="WildFly Server [%ManagedServerName]">
                         <param description="If true, once shutdown the host controller will be restarted again." name="restart" type="bool"/>
                     </operation-dmr>
                 </resource-type-dmr>
-                <resource-type-dmr avail-sets="Server Availability" metric-sets="WildFly Memory Metrics,WildFly Threading Metrics,WildFly Aggregated Web Metrics" name="Domain WildFly Server" pa
-rents="Domain Host" path="/server=*" resource-name-template="Domain WildFly Server [%-]">
+                <resource-type-dmr avail-sets="Server Availability" metric-sets="WildFly Memory Metrics,WildFly Threading Metrics,WildFly Aggregated Web Metrics" name="Domain WildFly Server" parents="Domain Host" path="/server=*" resource-name-template="Domain WildFly Server [%-]">
                     <notification-dmr name="resource-added"/>
                     <resource-config-dmr attribute="name" name="Name"/>
                     <resource-config-dmr attribute="host" name="Host"/>
@@ -785,8 +769,7 @@ rents="Domain Host" path="/server=*" resource-name-template="Domain WildFly Serv
                 </resource-type-dmr>
             </resource-type-set-dmr>
             <resource-type-set-dmr enabled="true" name="Hawkular">
-                <resource-type-dmr name="Hawkular WildFly Agent" parents="WildFly Server,Domain WildFly Server,Domain Host" path="/subsystem=hawkular-wildfly-agent" resource-name-template="Hawk
-ular WildFly Agent">
+                <resource-type-dmr name="Hawkular WildFly Agent" parents="WildFly Server,Domain WildFly Server,Domain Host" path="/subsystem=hawkular-wildfly-agent" resource-name-template="Hawkular WildFly Agent">
                     <resource-config-dmr attribute="immutable" name="Immutable" resolve-expressions="true"/>
                     <resource-config-dmr attribute="in-container" name="In Container" resolve-expressions="true"/>
                     <operation-dmr internal-name="status" name="Status"/>
@@ -794,8 +777,7 @@ ular WildFly Agent">
                 </resource-type-dmr>
             </resource-type-set-dmr>
             <resource-type-set-dmr enabled="true" name="Deployment">
-                <resource-type-dmr avail-sets="Deployment Status" metric-sets="Undertow Metrics" name="Deployment" parents="WildFly Server,Domain WildFly Server" path="/deployment=*" resource-n
-ame-template="Deployment [%-]">
+                <resource-type-dmr avail-sets="Deployment Status" metric-sets="Undertow Metrics" name="Deployment" parents="WildFly Server,Domain WildFly Server" path="/deployment=*" resource-name-template="Deployment [%-]">
                     <operation-dmr internal-name="redeploy" modifies="true" name="Redeploy"/>
                     <operation-dmr internal-name="remove" modifies="true" name="Remove"/>
                     <operation-dmr internal-name="undeploy" modifies="true" name="Undeploy"/>
@@ -806,18 +788,13 @@ ame-template="Deployment [%-]">
                 <resource-type-dmr metric-sets="Servlet Metrics" name="Servlet" parents="Deployment,SubDeployment" path="/subsystem=undertow/servlet=*" resource-name-template="Servlet [%-]"/>
             </resource-type-set-dmr>
             <resource-type-set-dmr enabled="true" name="EJB">
-                <resource-type-dmr metric-sets="Singleton EJB Metrics" name="Singleton EJB" parents="Deployment,SubDeployment" path="/subsystem=ejb3/singleton-bean=*" resource-name-template="Si
-ngleton EJB [%-]"/>
-                <resource-type-dmr metric-sets="Message Driven EJB Metrics" name="Message Driven EJB" parents="Deployment,SubDeployment" path="/subsystem=ejb3/message-driven-bean=*" resource-na
-me-template="Message Driven EJB [%-]"/>
-                <resource-type-dmr metric-sets="Stateless Session EJB Metrics" name="Stateless Session EJB" parents="Deployment,SubDeployment" path="/subsystem=ejb3/stateless-session-bean=*" re
-source-name-template="Stateless Session EJB [%-]"/>
-                <resource-type-dmr metric-sets="Stateful Session EJB Metrics" name="Stateful Session EJB" parents="Deployment,SubDeployment" path="/subsystem=ejb3/stateful-session-bean=*" resou
-rce-name-template="Stateful Session EJB [%-]"/>
+                <resource-type-dmr metric-sets="Singleton EJB Metrics" name="Singleton EJB" parents="Deployment,SubDeployment" path="/subsystem=ejb3/singleton-bean=*" resource-name-template="Singleton EJB [%-]"/>
+                <resource-type-dmr metric-sets="Message Driven EJB Metrics" name="Message Driven EJB" parents="Deployment,SubDeployment" path="/subsystem=ejb3/message-driven-bean=*" resource-name-template="Message Driven EJB [%-]"/>
+                <resource-type-dmr metric-sets="Stateless Session EJB Metrics" name="Stateless Session EJB" parents="Deployment,SubDeployment" path="/subsystem=ejb3/stateless-session-bean=*" resource-name-template="Stateless Session EJB [%-]"/>
+                <resource-type-dmr metric-sets="Stateful Session EJB Metrics" name="Stateful Session EJB" parents="Deployment,SubDeployment" path="/subsystem=ejb3/stateful-session-bean=*" resource-name-template="Stateful Session EJB [%-]"/>
             </resource-type-set-dmr>
             <resource-type-set-dmr enabled="true" name="Datasource">
-                <resource-type-dmr metric-sets="Datasource Pool Metrics,Datasource JDBC Metrics" name="Datasource" parents="WildFly Server,Domain WildFly Server" path="/subsystem=datasources/da
-ta-source=*" resource-name-template="Datasource [%-]">
+                <resource-type-dmr metric-sets="Datasource Pool Metrics,Datasource JDBC Metrics" name="Datasource" parents="WildFly Server,Domain WildFly Server" path="/subsystem=datasources/data-source=*" resource-name-template="Datasource [%-]">
                     <resource-config-dmr attribute="connection-url" name="Connection URL" resolve-expressions="true"/>
                     <resource-config-dmr attribute="driver-name" name="Driver Name"/>
                     <resource-config-dmr attribute="driver-class" name="Driver Class"/>
@@ -831,8 +808,7 @@ ta-source=*" resource-name-template="Datasource [%-]">
                 </resource-type-dmr>
             </resource-type-set-dmr>
             <resource-type-set-dmr enabled="true" name="XA Datasource">
-                <resource-type-dmr metric-sets="Datasource Pool Metrics,Datasource JDBC Metrics" name="XA Datasource" parents="WildFly Server,Domain WildFly Server" path="/subsystem=datasources
-/xa-data-source=*" resource-name-template="XA Datasource [%-]">
+                <resource-type-dmr metric-sets="Datasource Pool Metrics,Datasource JDBC Metrics" name="XA Datasource" parents="WildFly Server,Domain WildFly Server" path="/subsystem=datasources/xa-data-source=*" resource-name-template="XA Datasource [%-]">
                     <resource-config-dmr attribute="driver-name" name="Driver Name"/>
                     <resource-config-dmr attribute="xa-datasource-class" name="XA Datasource Class"/>
                     <resource-config-dmr attribute="enabled" name="Enabled"/>
@@ -852,12 +828,10 @@ ta-source=*" resource-name-template="Datasource [%-]">
                 </resource-type-dmr>
             </resource-type-set-dmr>
             <resource-type-set-dmr enabled="true" name="Transaction Manager">
-                <resource-type-dmr metric-sets="Transactions Metrics" name="Transaction Manager" parents="WildFly Server,Domain WildFly Server" path="/subsystem=transactions" resource-name-temp
-late="Transaction Manager"/>
+                <resource-type-dmr metric-sets="Transactions Metrics" name="Transaction Manager" parents="WildFly Server,Domain WildFly Server" path="/subsystem=transactions" resource-name-template="Transaction Manager"/>
             </resource-type-set-dmr>
             <resource-type-set-dmr enabled="true" name="Messaging">
-                <resource-type-dmr name="Messaging Server" parents="WildFly Server,Domain WildFly Server" path="/subsystem=messaging-activemq/server=*" resource-name-template="Messaging Server 
-[%-]"/>
+                <resource-type-dmr name="Messaging Server" parents="WildFly Server,Domain WildFly Server" path="/subsystem=messaging-activemq/server=*" resource-name-template="Messaging Server [%-]"/>
                 <resource-type-dmr metric-sets="JMS Queue Metrics" name="JMS Queue" parents="Messaging Server" path="/jms-queue=*" resource-name-template="JMS Queue [%-]"/>
                 <resource-type-dmr metric-sets="JMS Topic Metrics" name="JMS Topic" parents="Messaging Server" path="/jms-topic=*" resource-name-template="JMS Topic [%-]"/>
             </resource-type-set-dmr>
@@ -874,8 +848,7 @@ late="Transaction Manager"/>
                     <resource-config-dmr attribute="multicast-address" name="Multicast Address" resolve-expressions="true"/>
                     <resource-config-dmr attribute="multicast-port" name="Multicast Port"/>
                 </resource-type-dmr>
-                <resource-type-dmr name="Remote Destination Outbound Socket Binding" parents="Socket Binding Group" path="/remote-destination-outbound-socket-binding=*" resource-name-template="
-Remote Destination Outbound Socket Binding [%-]">
+                <resource-type-dmr name="Remote Destination Outbound Socket Binding" parents="Socket Binding Group" path="/remote-destination-outbound-socket-binding=*" resource-name-template="Remote Destination Outbound Socket Binding [%-]">
                     <resource-config-dmr attribute="host" name="Host"/>
                     <resource-config-dmr attribute="port" name="Port"/>
                 </resource-type-dmr>
@@ -908,8 +881,7 @@ Remote Destination Outbound Socket Binding [%-]">
             <metric-set-jmx enabled="true" name="RuntimeMetricsJMX">
                 <metric-jmx attribute="Uptime" interval="30" metric-units="milliseconds" name="VM Uptime" time-units="seconds"/>
                 <metric-jmx attribute="HeapMemoryUsage#used" interval="30" metric-units="bytes" name="Used Heap Memory" object-name="java.lang:type=Memory" time-units="seconds"/>
-                <metric-jmx attribute="CollectionTime" interval="30" metric-units="milliseconds" name="Aggregate GC Collection Time" object-name="java.lang:type=GarbageCollector,name=*" time-un
-its="seconds"/>
+                <metric-jmx attribute="CollectionTime" interval="30" metric-units="milliseconds" name="Aggregate GC Collection Time" object-name="java.lang:type=GarbageCollector,name=*" time-units="seconds"/>
             </metric-set-jmx>
             <metric-set-jmx enabled="true" name="MemoryPoolMetricsJMX">
                 <metric-jmx attribute="Usage#init" interval="2" metric-units="bytes" name="Initial" time-units="minutes"/>
@@ -918,21 +890,18 @@ its="seconds"/>
                 <metric-jmx attribute="Usage#max" interval="2" metric-units="bytes" name="Max" time-units="minutes"/>
             </metric-set-jmx>
             <resource-type-set-jmx enabled="true" name="MainJMX">
-                <resource-type-jmx avail-sets="RuntimeAvailsJMX" metric-sets="RuntimeMetricsJMX" name="Runtime MBean" object-name="java.lang:type=Runtime" resource-name-template="JMX [%_Managed
-ServerName%][%type%]">
+                <resource-type-jmx avail-sets="RuntimeAvailsJMX" metric-sets="RuntimeMetricsJMX" name="Runtime MBean" object-name="java.lang:type=Runtime" resource-name-template="JMX [%_ManagedServerName%][%type%]">
                     <resource-config-jmx attribute="Name" name="OS Name" object-name="java.lang:type=OperatingSystem"/>
                     <resource-config-jmx attribute="VmName" name="Java VM Name"/>
                 </resource-type-jmx>
             </resource-type-set-jmx>
             <resource-type-set-jmx enabled="true" name="MemoryPoolJMX">
-                <resource-type-jmx avail-sets="MemoryPoolAvailsJMX" metric-sets="MemoryPoolMetricsJMX" name="Memory Pool MBean" object-name="java.lang:type=MemoryPool,name=*" parents="Runtime M
-Bean" resource-name-template="JMX [%_ManagedServerName%] %type% %name%">
+                <resource-type-jmx avail-sets="MemoryPoolAvailsJMX" metric-sets="MemoryPoolMetricsJMX" name="Memory Pool MBean" object-name="java.lang:type=MemoryPool,name=*" parents="Runtime MBean" resource-name-template="JMX [%_ManagedServerName%] %type% %name%">
                     <resource-config-jmx attribute="Type" name="Type"/>
                 </resource-type-jmx>
             </resource-type-set-jmx>
             <managed-servers>
-                <local-dmr enabled="true" name="Local" resource-type-sets="Standalone Environment,Deployment,Web Component,EJB,Datasource,XA Datasource,JDBC Driver,Transaction Manager,Messaging
-,Socket Binding Group,Clustering,Hawkular">
+                <local-dmr enabled="true" name="Local" resource-type-sets="Standalone Environment,Deployment,Web Component,EJB,Datasource,XA Datasource,JDBC Driver,Transaction Manager,Messaging,Socket Binding Group,Clustering,Hawkular">
                     <wait-for name="/"/>
                 </local-dmr>
             </managed-servers>
