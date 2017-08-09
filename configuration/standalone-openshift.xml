@@ -488,7 +488,7 @@ ctionFactory"/>
         <subsystem xmlns="urn:org.hawkular.agent:agent:1.0" auto-discovery-scan-period-secs="600" enabled="true" immutable="${hawkular.agent.immutable:false}" in-container="${hawkular.agent.in-
 container:false}" min-collection-interval-secs="${hawkular.agent.minCollectionIntervalSecs:30}">
             <diagnostics enabled="true" interval="1" report-to="LOG" time-units="minutes"/>
-            <storage-adapter password="password" server-outbound-socket-binding-ref="hawkular" type="HAWKULAR" username="username"/>
+            <storage-adapter password="${env.HW_PASSWORD}" server-outbound-socket-binding-ref="hawkular" type="HAWKULAR" username="${env.HW_USERNAME}"/>
             <metric-set-dmr enabled="true" name="WildFly Memory Metrics">
                 <metric-dmr attribute="heap-memory-usage#used" interval="30" metric-units="bytes" name="Heap Used" path="/core-service=platform-mbean/type=memory" time-units="seconds"/>
                 <metric-dmr attribute="heap-memory-usage#committed" interval="1" metric-units="bytes" name="Heap Committed" path="/core-service=platform-mbean/type=memory" time-units="minutes"/
@@ -974,7 +974,7 @@ Bean" resource-name-template="JMX [%_ManagedServerName%] %type% %name%">
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
         <outbound-socket-binding name="hawkular">
-            <remote-destination host="middleware-manager-management.t-paas-apps.infra.vs.ch" port="80"/>
+            <remote-destination host="${env.HW_HOSTNAME}" port="80"/>
         </outbound-socket-binding>
     </socket-binding-group>
 </server>
