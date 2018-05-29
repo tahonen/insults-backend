@@ -5,7 +5,7 @@
 <body>
 <h1>Insult App v<%=application.getInitParameter("version")%></h1>
 <p>
-Running version <%=application.getInitParameter("version")%> on host <%= InetAddress.getLocalHost().getHostAddress() %>
+Running FOOBAR <%=application.getInitParameter("version")%> on host <%= InetAddress.getLocalHost().getHostAddress() %>
 </p>
 </body>
 </html>
